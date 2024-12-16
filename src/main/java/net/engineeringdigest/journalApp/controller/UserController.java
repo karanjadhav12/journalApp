@@ -1,10 +1,12 @@
 package net.engineeringdigest.journalApp.controller;
 
+import net.engineeringdigest.journalApp.api.response.WeatherResponse;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.UserRepository;
 import net.engineeringdigest.journalApp.service.JournalEntryService;
 import net.engineeringdigest.journalApp.service.UserService;
+import net.engineeringdigest.journalApp.service.WeatherService;
 import org.apache.catalina.realm.UserDatabaseRealm;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private WeatherService weatherService;
+
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -43,6 +48,17 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepository.deleteByUsername(authentication.getName());
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<?> greetings() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        WeatherResponse response = weatherService.getWeather("Dallas");
+        String greetings = "";
+        if (response != null) {
+            greetings = ", Temp is : " + response.getCurrent().getTemperature() + "F";
+        }
+        return new ResponseEntity<>("Hi " + authentication.getName() + greetings, HttpStatus.OK);
     }
 
 }

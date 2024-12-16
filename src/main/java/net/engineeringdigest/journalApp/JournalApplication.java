@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @EnableTransactionManagement
@@ -21,7 +22,12 @@ public class JournalApplication {
         System.out.println(context.getEnvironment().getActiveProfiles()[0]);
     }
     @Bean
-    public PlatformTransactionManager add(MongoDatabaseFactory dbFactory) {
+    public PlatformTransactionManager falana(MongoDatabaseFactory dbFactory) {
         return new MongoTransactionManager(dbFactory);
+    }
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
