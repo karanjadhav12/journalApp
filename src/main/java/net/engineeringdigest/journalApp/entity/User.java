@@ -20,21 +20,15 @@ public class User {
 
     @Id
     private ObjectId id;
-
     @Indexed(unique = true)
     @NonNull
     private String username;
-
     @NonNull
     private String password;
-
     private String email;
-
     private boolean sentimentAnalysis;
-
     @DBRef
-    private List<JournalEntry> journalEntries = new ArrayList<>();
-
-    private List<String> roles; // = new ArrayList<>();
+    private List<JournalEntry> journalEntries ; //= new ArrayList<>();
+    private List<String> roles;
 
 }

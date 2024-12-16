@@ -15,11 +15,8 @@ public class WeatherResponse {
     public class Current {
         @JsonProperty("observation_time")
         public String observationTime;
-
         public int temperature;
-
         public int wind_speed;
-
         public int feelslike;
     }
 }
