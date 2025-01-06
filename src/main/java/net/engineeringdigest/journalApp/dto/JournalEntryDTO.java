@@ -1,20 +1,20 @@
-package net.engineeringdigest.journalApp.entity;
+package net.engineeringdigest.journalApp.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.engineeringdigest.journalApp.enums.Sentiment;
 import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
-@Document(collection = "journal_entries")
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-public class JournalEntry {
+public class JournalEntryDTO {
 
-    @Id
     private ObjectId id;
-    @NonNull
+    @NotEmpty
     private String title;
     private String content;
     private LocalDateTime date;

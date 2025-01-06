@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 public class JournalApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(JournalApplication.class, args);
-        System.out.println(context.getEnvironment().getActiveProfiles()[0]);
+//        System.out.println(context.getEnvironment().getActiveProfiles()[0]);
     }
     @Bean
     public PlatformTransactionManager falana(MongoDatabaseFactory dbFactory) {

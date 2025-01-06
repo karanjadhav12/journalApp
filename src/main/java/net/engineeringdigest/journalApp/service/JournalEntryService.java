@@ -1,8 +1,12 @@
 package net.engineeringdigest.journalApp.service;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import net.engineeringdigest.journalApp.dto.JournalEntryDTO;
+import net.engineeringdigest.journalApp.dto.UserDTO;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
+import net.engineeringdigest.journalApp.enums.Sentiment;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -69,6 +73,16 @@ public class JournalEntryService {
             throw new RuntimeException("An error occurred while deleting an entry " + e);
         }
         return removed;
+    }
+
+    public JournalEntry mapJournalDTOToEntity(JournalEntryDTO journalEntryDTO) {
+        JournalEntry journalEntry = new JournalEntry();
+        journalEntry.setId(journalEntryDTO.getId());
+        journalEntry.setTitle(journalEntryDTO.getTitle());
+        journalEntry.setContent(journalEntryDTO.getContent());
+        journalEntry.setDate(journalEntryDTO.getDate());
+        journalEntry.setSentiment(journalEntryDTO.getSentiment());
+        return journalEntry;
     }
 
 }

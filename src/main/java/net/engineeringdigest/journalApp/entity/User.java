@@ -28,7 +28,7 @@ public class User {
     private String email;
     private boolean sentimentAnalysis;
     @DBRef
-    private List<JournalEntry> journalEntries ; //= new ArrayList<>();
+    private List<JournalEntry> journalEntries ; //= new ArrayList<>();{}
     private List<String> roles;
 
 }

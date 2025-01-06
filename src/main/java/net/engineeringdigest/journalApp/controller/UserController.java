@@ -1,6 +1,9 @@
 package net.engineeringdigest.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.engineeringdigest.journalApp.api.response.WeatherResponse;
+import net.engineeringdigest.journalApp.dto.UserDTO;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.UserRepository;
@@ -21,6 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
+@Tag(name = "User APIs", description = "Read, Update and Delete Users")
 public class UserController {
 
     @Autowired
@@ -33,7 +37,9 @@ public class UserController {
     private WeatherService weatherService;
 
     @PutMapping
-    public ResponseEntity<?> updateUser(@RequestBody User user) {
+    @Operation(summary = "Update user")
+    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
+        User user = userService.mapDTOToEntity(userDTO);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User userInDb = userService.findByUsername(username);
@@ -44,17 +50,19 @@ public class UserController {
         }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteUser(@RequestBody User user) {
+    @Operation(summary = "Delete user")
+    public ResponseEntity<?> deleteUser(@RequestBody UserDTO userDTO) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepository.deleteByUsername(authentication.getName());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping
+    @Operation(summary = "Greetings")
     public ResponseEntity<?> greetings() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         WeatherResponse response = weatherService.getWeather("New_York");
-         String greetings = "";
+        String greetings = "";
         if (response != null) {
             greetings = ", Temp is : " + response.getCurrent().getTemperature() + " degree Celsius";
         }
