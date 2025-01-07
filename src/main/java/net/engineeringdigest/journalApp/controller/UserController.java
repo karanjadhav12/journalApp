@@ -38,8 +38,8 @@ public class UserController {
 
     @PutMapping
     @Operation(summary = "Update user")
-    public ResponseEntity<?> updateUser(@RequestBody UserDTO userDTO) {
-        User user = userService.mapDTOToEntity(userDTO);
+    public ResponseEntity<?> updateUser(@RequestBody User user) {
+//        User user = userService.mapDTOToEntity(userDTO);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User userInDb = userService.findByUsername(username);
@@ -51,7 +51,7 @@ public class UserController {
 
     @DeleteMapping
     @Operation(summary = "Delete user")
-    public ResponseEntity<?> deleteUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> deleteUser(@RequestBody User user) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepository.deleteByUsername(authentication.getName());
         return new ResponseEntity<>(HttpStatus.OK);

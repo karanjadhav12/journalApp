@@ -37,16 +37,16 @@ public class PublicController {
 
     @PostMapping("/signup")
     @Operation(summary = "Create new user")
-    public void signup(@RequestBody UserDTO user) {
-        User newUser = userService.mapDTOToEntity(user);
-        userService.saveNewUser(newUser);
+    public void signup(@RequestBody User user) {
+//        User newUser = userService.mapDTOToEntity(user);
+        userService.saveNewUser(user);
     }
 
     @PostMapping("/login")
     @Operation(summary = "Existing user login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> login(@RequestBody User user) {
         try {
-            User user = userService.mapDTOToEntity(userDTO);
+//            User user = userService.mapDTOToEntity(userDTO);
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
             UserDetails userDetails = userDetailService.loadUserByUsername(user.getUsername());
             String jwt = jwtUtil.generateToken(userDetails.getUsername());

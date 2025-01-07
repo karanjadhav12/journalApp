@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +39,9 @@ public class JournalEntryService {
             User user = userService.findByUsername(username);
             journalEntry.setDate(LocalDateTime.now());
             JournalEntry saved = journalEntryRepository.save(journalEntry);
+            if (user.getJournalEntries()==null){
+                user.setJournalEntries(new ArrayList<>());
+            }
             user.getJournalEntries().add(saved);
             userService.saveEntry(user);
         }catch(Exception e){
