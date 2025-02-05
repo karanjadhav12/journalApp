@@ -6,7 +6,7 @@ spring:
 
   data:
     mongodb:
-      uri: ${MONGODB_URI}
+      uri: ${MONGODB_URI}?ssl=false
       database : journaldb
       auto-index-creation : true
 
