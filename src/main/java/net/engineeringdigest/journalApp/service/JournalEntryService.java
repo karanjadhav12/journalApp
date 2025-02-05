@@ -32,7 +32,7 @@ public class JournalEntryService {
 
     private static final Logger logger = LoggerFactory.getLogger(JournalEntryService.class);
 
-
+    
     @Transactional
     public void saveEntry(JournalEntry journalEntry, String username) {
         try {

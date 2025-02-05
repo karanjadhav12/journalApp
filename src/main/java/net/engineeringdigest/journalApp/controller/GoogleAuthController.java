@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.UUID;
 
-
 @RestController
 @RequestMapping("/auth/google")
 @Slf4j
@@ -64,9 +63,7 @@ public class GoogleAuthController {
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
             HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
-
             ResponseEntity<Map> tokenResponse = restTemplate.postForEntity(tokenEndpoint, request, Map.class);
             String idToken = (String) tokenResponse.getBody().get("id_token");
             String userInfoUrl = "https://oauth2.googleapis.com/tokeninfo?id_token=" + idToken;

@@ -56,10 +56,16 @@ public class UserService {
         }
     }
 
-    public void saveAdmin(User user) {
+    public User saveAdmin(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList("User", "ADMIN"));
-        userRepository.save(user);
+         return userRepository.save(user);
+    }
+
+    public User makeAdmin(String username) {
+        User user = userRepository.findByUsername(username);
+        user.setRoles(Arrays.asList("User", "ADMIN"));
+        return userRepository.save(user);
     }
 
     public List<User> getAll() {
@@ -78,13 +84,13 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public User mapDTOToEntity(UserDTO userDTO) {
-        User user = new User();
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setSentimentAnalysis(userDTO.isSentimentAnalysis());
-        return user;
-    }
+//    public User mapDTOToEntity(UserDTO userDTO) {
+//        User user = new User();
+//        user.setUsername(userDTO.getUsername());
+//        user.setEmail(userDTO.getEmail());
+//        user.setSentimentAnalysis(userDTO.isSentimentAnalysis());
+//        return user;
+//    }
 
 
 }

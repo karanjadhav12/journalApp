@@ -20,6 +20,9 @@ import org.springframework.web.client.RestTemplate;
 @EnableScheduling
 public class JournalApplication {
     public static void main(String[] args) {
+//        System.out.println( System.getenv("JAVAMAIL_HOST"));
+//        System.out.println( System.getenv("JAVAMAIL_USERNAME"));
+//        System.out.println( System.getenv("JAVAMAIL_PASSWORD"));
         ConfigurableApplicationContext context = SpringApplication.run(JournalApplication.class, args);
 //        System.out.println(context.getEnvironment().getActiveProfiles()[0]);
     }

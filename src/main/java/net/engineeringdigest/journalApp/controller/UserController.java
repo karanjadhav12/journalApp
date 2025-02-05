@@ -45,13 +45,15 @@ public class UserController {
         User userInDb = userService.findByUsername(username);
         userInDb.setUsername(user.getUsername());
         userInDb.setPassword(user.getPassword());
+        userInDb.setSentimentAnalysis(user.isSentimentAnalysis());
+        userInDb.setEmail(user.getEmail());
         userService.saveNewUser(userInDb);
         return new ResponseEntity<>(userInDb, HttpStatus.OK);
         }
 
     @DeleteMapping
     @Operation(summary = "Delete user")
-    public ResponseEntity<?> deleteUser(@RequestBody User user) {
+    public ResponseEntity<?> deleteUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         userRepository.deleteByUsername(authentication.getName());
         return new ResponseEntity<>(HttpStatus.OK);
