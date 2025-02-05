@@ -1,0 +1,47 @@
+spring:
+  redis:
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
+
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      database : journaldb
+      auto-index-creation : true
+
+  mail:
+    host: ${JAVAMAIL_HOST}
+    port: ${JAVAMAIL_PORT}
+    username: ${JAVAMAIL_USERNAME}
+    password: ${JAVAMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+
+server:
+  port: ${SERVER_PORT}
+  servlet:
+    context-path: /journal
+
+logging:
+  levels:
+    net:
+      engineeringdigest:
+        journalApp: DEBUG
+
+weather:
+  api:
+    key: ${WEATHER_API_KEY}
+
